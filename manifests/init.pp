@@ -22,6 +22,7 @@
 #  class { solr: }
 #
 class solr (
+  $cores     = [],
   $port      = "8080",
   $java_home = '/usr/lib/jvm/java-1.6.0-openjdk-i386',
 ) {
