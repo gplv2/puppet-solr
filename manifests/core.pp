@@ -15,30 +15,36 @@ define solr::core(
 
   #Copy its config over
   file { "core-${title}-conf":
-    ensure => directory,
+    ensure  => directory,
     recurse => true,
-    path => "${solr_home}/${title}/conf",
-    source => $data,
+    path    => "${solr_home}/${title}/conf",
+    source  => $data,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
     require => Exec["mkdir-p-${title}"],
   }
 
   #Copy the respective solrconfig.xml file
   file { "solrconfig-${title}":
-    ensure => file,
-    path => "${solr_home}/${title}/conf/solrconfig.xml",
+    ensure  => file,
+    path    => "${solr_home}/${title}/conf/solrconfig.xml",
     content => template($solrconfig),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
     require => File["core-${title}-conf"],
   }
 
   #Finally, create the data directory where solr stores
   #its indexes with proper directory ownership/permissions.
   file { "${title}-data-dir":
-    ensure => directory,
-    path => "/var/lib/solr/${title}",
-    owner => "jetty",
-    group => "jetty",
+    ensure  => directory,
+    path    => "/var/lib/solr/${title}",
+    owner   => "jetty",
+    group   => "jetty",
     require => File["solrconfig-${title}"],
-    before => File['solr.xml'],
+    before  => File['solr.xml'],
   }
 
 }
