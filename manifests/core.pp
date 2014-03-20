@@ -1,7 +1,6 @@
 define solr::core(
   $solrconfig = 'solr/solrconfig.xml.erb',
   $data       = 'puppet:///modules/solr/conf/',
-  $contrib    = 'puppet:///modules/solr/contrib/'
 ) {
 
   $solr_home = "/usr/share/solr"
@@ -35,18 +34,6 @@ define solr::core(
     group   => 'root',
     mode    => '0644',
     require => File["core-${title}-conf"],
-  }
-
-  #Copy the extraction library over
-  file { "contrib-${title}":
-    ensure  => directory,
-    recurse => true,
-    path    => "${solr_home}/contrib",
-    source  => $contrib,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Package['solr-jetty'],
   }
 
   #Finally, create the data directory where solr stores
