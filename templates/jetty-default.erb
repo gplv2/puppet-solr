@@ -25,7 +25,7 @@ JETTY_PORT=<%= scope.lookupvar('solr::port') %>
 #JETTY_ARGS=
 
 # Extra options to pass to the JVM         
-JAVA_OPTIONS="-Xmx512m -Djava.awt.headless=true"
+JAVA_OPTIONS="-Xms256m -Xmx512m -Djava.awt.headless=true -XX:+UseConcMarkSweepGC  -XX:+CMSIncrementalMode -Dfile.encoding=UTF-8 -jvm server -XX:PermSize=64m -XX:MaxPermSize=512m -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=9090 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -XX:+UsePerfData -Djava.io.tmpdir=/tmp"
 
 # Home of Java installation.
 # JAVA_HOME=<%= scope.lookupvar('solr::java_home') %>
