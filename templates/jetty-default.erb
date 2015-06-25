@@ -28,7 +28,8 @@ JETTY_PORT=<%= scope.lookupvar('solr::port') %>
 JAVA_OPTIONS="-Xmx512m -Djava.awt.headless=true"
 
 # Home of Java installation.
-JAVA_HOME=<%= scope.lookupvar('solr::java_home') %>
+# JAVA_HOME=<%= scope.lookupvar('solr::java_home') %>
+JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 
 # The first existing directory is used for JAVA_HOME (if JAVA_HOME is not
 # defined in /etc/default/jetty). Should contain a list of space separated directories.
