@@ -8,7 +8,7 @@ VERBOSE=yes
 
 # Run Jetty as this user ID (default: jetty)
 # Set this to an empty string to prevent Jetty from starting automatically
-#JETTY_USER=jetty
+JETTY_USER=jetty
 
 # Listen to connections from this network host
 # Use 0.0.0.0 as host to accept all connections.
@@ -25,7 +25,7 @@ JETTY_PORT=<%= scope.lookupvar('solr::port') %>
 #JETTY_ARGS=
 
 # Extra options to pass to the JVM         
-#JAVA_OPTIONS="-Xmx256m -Djava.awt.headless=true"
+JAVA_OPTIONS="-Xmx512m -Djava.awt.headless=true"
 
 # Home of Java installation.
 JAVA_HOME=<%= scope.lookupvar('solr::java_home') %>
