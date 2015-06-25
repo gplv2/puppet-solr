@@ -24,7 +24,7 @@
 class solr (
   $cores     = [],
   $port      = "8080",
-  $java_home = '/usr/lib/jvm/java-1.6.0-openjdk-i386',
+  $java_home = '$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")',
   $contrib   = 'puppet:///modules/solr/contrib/'
 ) {
 
