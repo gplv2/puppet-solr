@@ -31,6 +31,10 @@ class solr (
   $jetty_home = "/usr/share/jetty"
   $solr_home = "/opt/solr/solr"
 
+  package { 'jetty8':
+    ensure => present,
+  }
+
   package { 'solr-jetty':
     ensure => present,
   }
@@ -47,9 +51,6 @@ class solr (
     ensure => present,
   }
 
-  package { 'jetty8':
-    ensure => present,
-  }
 
   # Ensure the java directory exists with the right permissions
   file { "/usr/java":
