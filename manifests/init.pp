@@ -35,6 +35,14 @@ class solr (
     ensure => present,
   }
 
+  package { 'libjetty-extra-java':
+    ensure => present,
+  }
+
+  package { 'libtomcat7-java':
+    ensure => present,
+  }
+
   package { 'jetty8':
     ensure => present,
   }
