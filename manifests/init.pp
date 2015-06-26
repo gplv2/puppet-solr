@@ -51,7 +51,6 @@ class solr (
     ensure => present,
   }
 
-
   # Ensure the java directory exists with the right permissions
   file { "/usr/java":
     ensure            =>  directory,
