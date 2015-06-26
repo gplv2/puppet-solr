@@ -31,11 +31,11 @@ class solr (
   $jetty_home = "/usr/share/jetty"
   $solr_home = "/opt/solr/solr"
 
-  package { 'jetty8':
+  package { 'openjdk-7-jdk':
     ensure => present,
   }
 
-  package { 'openjdk-7-jdk':
+  package { 'jetty8':
     ensure => present,
   }
 
@@ -60,7 +60,6 @@ class solr (
     command => "rm -rf ${solr_home}/WEB-INF",
     path    => ["/usr/bin", "/usr/sbin", "/bin"],
     onlyif  => "test -d ${solr_home}/WEB-INF",
-    require => Package['solr-jetty'],
   }
 
   # Removes existing solr config
@@ -133,7 +132,6 @@ class solr (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package['solr-jetty'],
   }
 
   # Restart after copying new config
