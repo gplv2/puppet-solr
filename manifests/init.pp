@@ -70,21 +70,21 @@ class solr (
   # Ensure the softlink to default missing log4j
   file { "/usr/share/jetty/lib/ext/commons-logging-api.jar":
     ensure            =>  'link',
-    target            =>  '/usr/lib/jvm/java-7-openjdk-amd64/commons-logging-api.jar',
-    require => Package['openjdk-7-jdk'],
-  }
-
-  # Ensure the softlink to default missing log4j
-  file { "/usr/share/jetty/lib/ext/slf4j-api-1.7.5.jar":
-    ensure            =>  'link',
-    target            =>  '/usr/lib/jvm/java-7-openjdk-amd64/slf4j-api-1.7.5.jar',
+    target            =>  '/usr/share/java/commons-logging-api.jar',
     require => Package['openjdk-7-jdk'],
   }
 
   # Ensure the softlink to default missing log4j
   file { "/usr/share/jetty/lib/ext/slf4j-log4j12.jar":
     ensure            =>  'link',
-    target            =>  '/usr/lib/jvm/java-7-openjdk-amd64/slf4j-log4j12.jar',
+    target            =>  '/usr/share/java/slf4j-log4j12.jar',
+    require => Package['openjdk-7-jdk'],
+  }
+
+  # Ensure the softlink to default missing log4j
+  file { "/usr/share/jetty/lib/ext/slf4j-api-1.7.5.jar":
+    ensure            =>  'link',
+    target            =>  '/usr/share/java/slf4j-api-1.7.5.jar',
     require => Package['openjdk-7-jdk'],
   }
 
