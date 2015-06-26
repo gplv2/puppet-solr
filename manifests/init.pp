@@ -24,19 +24,35 @@
 class solr (
   $cores     = [],
   $port      = "8080",
-  $java_home = '$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")',
+  $java_home = '/usr/java/default',
   $contrib   = 'puppet:///modules/solr/contrib/'
 ) {
 
   $jetty_home = "/usr/share/jetty"
-  $solr_home = "/usr/share/solr"
+  $solr_home = "/opt/solr/solr"
 
-  package { 'solr-jetty':
+  package { 'jetty8':
     ensure => present,
   }
 
   package { 'openjdk-7-jdk':
     ensure => present,
+  }
+
+  # Ensure the java directory exists with the right permissions
+  file { "/usr/java":
+    ensure            =>  directory,
+    owner             =>  'root',
+    group             =>  'root',
+    mode              =>  '0755',
+    require => Package['openjdk-7-jdk'],
+  }
+
+  # Ensure the softlink to default java exists
+  file { "/usr/java/default":
+    ensure            =>  'link',
+    target            =>  '/usr/lib/jvm/java-7-openjdk-amd64',
+    require => Package['openjdk-7-jdk'],
   }
 
   # Removes existing solr install
@@ -89,7 +105,7 @@ class solr (
   # Copy the jetty config file
   file { 'jetty-default':
     ensure  => file,
-    path    => "/etc/default/jetty",
+    path    => "/etc/default/jetty8",
     content => template('solr/jetty-default.erb'),
     owner   => 'root',
     group   => 'root',
