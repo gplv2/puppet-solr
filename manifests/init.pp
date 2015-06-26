@@ -31,7 +31,7 @@ class solr (
   $jetty_home = "/usr/share/jetty"
   $solr_home = "/opt/solr"
 
-  package { 'jetty8':
+  package { 'jetty':
     ensure => present,
   }
 
@@ -63,6 +63,27 @@ class solr (
 
   # Ensure the softlink to default java exists
   file { "/usr/java/default":
+    ensure            =>  'link',
+    target            =>  '/usr/lib/jvm/java-7-openjdk-amd64',
+    require => Package['openjdk-7-jdk'],
+  }
+
+  # Ensure the softlink to default missing log4j
+  file { "/usr/share/jetty8/lib/ext/commons-logging-api.jar":
+    ensure            =>  'link',
+    target            =>  '/usr/lib/jvm/java-7-openjdk-amd64',
+    require => Package['openjdk-7-jdk'],
+  }
+
+  # Ensure the softlink to default missing log4j
+  file { "/usr/share/jetty8/lib/ext/slf4j-api-1.7.5.jar":
+    ensure            =>  'link',
+    target            =>  '/usr/lib/jvm/java-7-openjdk-amd64',
+    require => Package['openjdk-7-jdk'],
+  }
+
+  # Ensure the softlink to default missing log4j
+  file { "/usr/share/jetty8/lib/ext/slf4j-log4j12.jar":
     ensure            =>  'link',
     target            =>  '/usr/lib/jvm/java-7-openjdk-amd64',
     require => Package['openjdk-7-jdk'],
@@ -118,7 +139,7 @@ class solr (
   # Copy the jetty config file
   file { 'jetty-default':
     ensure  => file,
-    path    => "/etc/default/jetty8",
+    path    => "/etc/default/jetty",
     content => template('solr/jetty-default.erb'),
     owner   => 'root',
     group   => 'root',
