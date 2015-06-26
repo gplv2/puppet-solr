@@ -3,7 +3,7 @@ define solr::core(
   $data       = 'puppet:///modules/solr/conf/',
 ) {
 
-  $solr_home = "/opt/solr/"
+  $solr_home = "/opt/solr"
 
   #Create this core's config directory
   exec { "mkdir-p-${title}":

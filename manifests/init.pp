@@ -29,7 +29,7 @@ class solr (
 ) {
 
   $jetty_home = "/usr/share/jetty"
-  $solr_home = "/opt/solr/solr"
+  $solr_home = "/opt/solr"
 
   package { 'jetty8':
     ensure => present,
